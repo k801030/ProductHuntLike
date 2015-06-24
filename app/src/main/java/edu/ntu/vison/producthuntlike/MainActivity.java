@@ -24,11 +24,11 @@ public class MainActivity extends FragmentActivity {
                 case 0:
                     return ProductsFragment.newInstance(1, "First Page");
                 case 1:
-                    return ProductsFragment.newInstance(2, "Second Page");
+                    return SampleFragment.newInstance(2, "Second Page");
                 case 2:
-                    return ProductsFragment.newInstance(3, "Third Page");
+                    return SampleFragment.newInstance(3, "Third Page");
                 default:
-                    return new ProductsFragment();
+                    return new SampleFragment();
             }
         }
 

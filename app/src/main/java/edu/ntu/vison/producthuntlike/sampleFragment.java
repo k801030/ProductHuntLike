@@ -12,20 +12,20 @@ import android.widget.TextView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProductsFragment extends Fragment {
+public class SampleFragment extends Fragment {
     // Store instance variables
     private String title;
     private int page;
 
     // newInstance constructor for creating fragment with arguments
-    public static ProductsFragment newInstance(int page, String title) {
+    public static SampleFragment newInstance(int page, String title) {
         // Required empty public constructor
-        ProductsFragment productsFragment = new ProductsFragment();
+        SampleFragment SampleFragment = new SampleFragment();
         Bundle args = new Bundle();
         args.putInt("page", page);
         args.putString("title", title);
-        productsFragment.setArguments(args);
-        return productsFragment;
+        SampleFragment.setArguments(args);
+        return SampleFragment;
     }
 
     // Store instance variables based on arguments passed
@@ -42,7 +42,7 @@ public class ProductsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_products, container, false);
-        TextView textView = (TextView)view.findViewById(R.id.title);
+        TextView textView = (TextView)view.findViewById(R.id.name);
         textView.setText(page + " | " + title);
         return view;
     }
