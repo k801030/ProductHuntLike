@@ -6,9 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 /**
@@ -20,7 +17,7 @@ import android.widget.ListView;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class ProductsFragment extends Fragment {
+public class productsFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -44,8 +41,8 @@ public class ProductsFragment extends Fragment {
 
 
     // TODO: Rename and change types of parameters
-    public static ProductsFragment newInstance(int param1, String param2) {
-        ProductsFragment fragment = new ProductsFragment();
+    public static productsFragment newInstance(int param1, String param2) {
+        productsFragment fragment = new productsFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -57,7 +54,7 @@ public class ProductsFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ProductsFragment() {
+    public productsFragment() {
     }
 
     @Override

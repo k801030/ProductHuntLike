@@ -1,4 +1,4 @@
-package edu.ntu.vison.producthuntlike;
+package edu.ntu.vison.producthuntlike.model;
 
 import java.util.Objects;
 

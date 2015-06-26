@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.ntu.vison.producthuntlike.model.ProductItem;
+
 /**
  * Created by Vison on 2015/6/26.
  */

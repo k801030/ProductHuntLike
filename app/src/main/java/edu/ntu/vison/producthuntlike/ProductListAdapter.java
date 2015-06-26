@@ -1,7 +1,7 @@
 package edu.ntu.vison.producthuntlike;
 
 import android.app.Activity;
-import android.util.Log;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,21 +9,13 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+
+import edu.ntu.vison.producthuntlike.model.ProductItem;
 
 /**
  * Created by Vison on 2015/6/24.
@@ -88,6 +80,14 @@ public class ProductListAdapter extends BaseAdapter {
         voteButton.setText("▲\n" + productItem.getVoteCount());
         nameText.setText(productItem.getName());
         descriptionText.setText(productItem.getTagline());
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity, DetailActivity.class);
+                activity.startActivity(intent);
+            }
+        });
 
         return view;
     }
