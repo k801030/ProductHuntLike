@@ -10,21 +10,23 @@ public class ProductItem {
     private String name, created_at;
     private CharSequence tagline;
     private Object profile_pic;
-    public ProductItem(int id, String name, CharSequence tagline, Object profile_pic, int vote_count, String created_at) {
+    public ProductItem(int id, String name, CharSequence tagline, Object profile_pic, int votes_count, String created_at) {
         super();
         this.id = id;
         this.name = name;
         this.tagline = tagline;
+        this.votes_count = votes_count;
         this.profile_pic = profile_pic;
         this.created_at = created_at;
     }
 
     // without profile_pic
-    public ProductItem(int id, String name, CharSequence tagline, int vote_count, String created_at) {
+    public ProductItem(int id, String name, CharSequence tagline, int votes_count, String created_at) {
         super();
         this.id = id;
         this.name = name;
         this.tagline = tagline;
+        this.votes_count = votes_count;
         this.created_at = created_at;
     }
 

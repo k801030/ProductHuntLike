@@ -98,12 +98,12 @@ public class ProductListAdapter extends BaseAdapter {
                     JSONObject each = posts.getJSONObject(i);
                     int id = each.getInt("id");
                     String name = each.getString("name");
-                    String description = each.getString("tagline");
-                    int vote = each.getInt("votes_count");
+                    String tagline = each.getString("tagline");
+                    int votes_count = each.getInt("votes_count");
                     String created_at = each.getString("created_at");
 
                     // create an product item, and add it to lists
-                    ProductItem item = new ProductItem(id,name,description,vote,created_at);
+                    ProductItem item = new ProductItem(id,name,tagline,votes_count,created_at);
                     productItems.add(item);
                 }
                 // tell the adapter to set data
