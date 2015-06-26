@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import edu.ntu.vison.producthuntlike.model.ProductItem;
 
@@ -24,6 +25,44 @@ import edu.ntu.vison.producthuntlike.model.ProductItem;
 public class RequestHandler {
     // access token by ProductHunt
     private final static String token = "cc294d0d5f4560468654144e152a95ede6ae1cc488a7f3794f040d58ba25449d";
+
+
+    public interface VolleyCallback{
+        void onSuccess(ProductItem result);
+    }
+    public static AuthRequest getPostDetail(final VolleyCallback callback, int product_id) {
+        String url = "https://api.producthunt.com/v1/posts/" + product_id;
+
+        Response.Listener detailListener = new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject res) {
+                ProductItem item = null;
+                try {
+                    // get array from response
+                    JSONObject detail = res.getJSONObject("post");
+                        int id = detail.getInt("id");
+                        String name = detail.getString("name");
+                        String tagline = detail.getString("tagline");
+                        int votes_count = detail.getInt("votes_count");
+                        String created_at = detail.getString("created_at");
+
+                        // create an product item, and add it to lists
+                    item = new ProductItem(id,name,tagline,votes_count,created_at);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                callback.onSuccess(item);
+            }
+        };
+        AuthRequest authRequest = new AuthRequest(Request.Method.GET, url, detailListener,
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("ERROR", error.toString());
+                    }
+                });
+        return authRequest;
+    }
 
     /**
      *

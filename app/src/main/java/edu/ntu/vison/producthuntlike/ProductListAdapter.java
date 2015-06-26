@@ -25,6 +25,7 @@ public class ProductListAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private Activity activity;
     private ArrayList<ProductItem> posts;
+    public final static String PRODUCT_ID = "edu.ntu.vison.producthuntlike.product_id";
 
     // Constructor
     public ProductListAdapter(Activity activity) {
@@ -72,7 +73,7 @@ public class ProductListAdapter extends BaseAdapter {
             view = inflater.inflate(R.layout.fragment_products, null);
 
 
-        ProductItem productItem = posts.get(i);
+        final ProductItem productItem = posts.get(i);
         Button voteButton = (Button) view.findViewById(R.id.vote);
         TextView nameText = (TextView) view.findViewById(R.id.name);
         TextView descriptionText = (TextView) view.findViewById(R.id.description);
@@ -85,7 +86,9 @@ public class ProductListAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(activity, DetailActivity.class);
+                intent.putExtra(PRODUCT_ID, productItem.getId());
                 activity.startActivity(intent);
+
             }
         });
 

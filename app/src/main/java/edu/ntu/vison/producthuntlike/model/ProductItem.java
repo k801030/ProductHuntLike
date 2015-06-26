@@ -29,6 +29,7 @@ public class ProductItem {
         this.votes_count = votes_count;
         this.created_at = created_at;
     }
+    public int getId() { return id; }
 
     public int getVoteCount() {
         return votes_count;
