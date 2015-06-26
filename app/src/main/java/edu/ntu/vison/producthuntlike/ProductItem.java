@@ -6,29 +6,35 @@ import java.util.Objects;
  * Created by Vison on 2015/6/24.
  */
 public class ProductItem {
-    private int id, vote;
-    private String name, time_stamp;
-    private CharSequence description;
+    private int id, votes_count;
+    private String name, created_at;
+    private CharSequence tagline;
     private Object profile_pic;
-    public ProductItem(int id, String name, CharSequence description, Object profile_pic, int vote, String time_stamp) {
+    public ProductItem(int id, String name, CharSequence tagline, Object profile_pic, int vote_count, String created_at) {
         super();
         this.id = id;
         this.name = name;
-        this.description = description;
+        this.tagline = tagline;
         this.profile_pic = profile_pic;
-        this.vote = vote;
-        this.time_stamp = time_stamp;
+        this.created_at = created_at;
     }
 
-    public int getVote() {
-        return vote;
+    // without profile_pic
+    public ProductItem(int id, String name, CharSequence tagline, int vote_count, String created_at) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.tagline = tagline;
+        this.created_at = created_at;
+    }
+
+    public int getVoteCount() {
+        return votes_count;
     }
 
     public String getName() {
         return name;
     }
 
-    public CharSequence getDescription() {
-        return description;
-    }
+    public CharSequence getTagline() { return tagline; }
 }
