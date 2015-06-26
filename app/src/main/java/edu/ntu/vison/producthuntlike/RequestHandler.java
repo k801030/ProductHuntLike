@@ -27,16 +27,20 @@ public class RequestHandler {
     private final static String token = "cc294d0d5f4560468654144e152a95ede6ae1cc488a7f3794f040d58ba25449d";
 
 
-    public interface VolleyCallback{
+    public interface getPostDetailCallback{
         void onSuccess(ProductItem result);
     }
-    public static AuthRequest getPostDetail(final VolleyCallback callback, int product_id) {
+
+    public interface getPostsCallback{
+        void onSuccess(ArrayList<ProductItem> results);
+    }
+
+    public static AuthRequest getPostDetail(final getPostDetailCallback callback, int product_id) {
         String url = "https://api.producthunt.com/v1/posts/" + product_id;
 
         Response.Listener detailListener = new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject res) {
-                ProductItem item = null;
                 try {
                     // get array from response
                     JSONObject detail = res.getJSONObject("post");
@@ -47,11 +51,11 @@ public class RequestHandler {
                         String created_at = detail.getString("created_at");
 
                         // create an product item, and add it to lists
-                    item = new ProductItem(id,name,tagline,votes_count,created_at);
+                    ProductItem item = new ProductItem(id,name,tagline,votes_count,created_at);
+                    callback.onSuccess(item);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                callback.onSuccess(item);
             }
         };
         AuthRequest authRequest = new AuthRequest(Request.Method.GET, url, detailListener,
@@ -66,11 +70,9 @@ public class RequestHandler {
 
     /**
      *
-     * @param posts the target data when there is a response
-     * @param adapter when data has changed, call its notifyDataSetChanged method
      * @return get the request function
      */
-    public static AuthRequest getPosts(final ArrayList<ProductItem> posts, final ProductListAdapter adapter) {
+    public static AuthRequest getPosts(final getPostsCallback callback) {
         String url = "https://api.producthunt.com/v1/posts";
         // initialize request with listener, headers
         Response.Listener postsListener = new Response.Listener<JSONObject>() {
@@ -80,7 +82,8 @@ public class RequestHandler {
                 try {
                     // get array from response
                     JSONArray postsData = res.getJSONArray("posts");
-                    for(int i=0;i<postsData.length();i++) {
+                    ArrayList<ProductItem> posts = new ArrayList<ProductItem>();
+                    for (int i = 0; i < postsData.length(); i++) {
                         JSONObject each = postsData.getJSONObject(i);
                         int id = each.getInt("id");
                         String name = each.getString("name");
@@ -89,16 +92,15 @@ public class RequestHandler {
                         String created_at = each.getString("created_at");
 
                         // create an product item, and add it to lists
-                        ProductItem item = new ProductItem(id,name,tagline,votes_count,created_at);
+                        ProductItem item = new ProductItem(id, name, tagline, votes_count, created_at);
                         posts.add(item);
                     }
-                    // tell the adapter to set data
-                    adapter.notifyDataSetChanged();
+                    callback.onSuccess(posts);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-
         };
         AuthRequest authRequest = new AuthRequest(Request.Method.GET, url, postsListener,
                 new Response.ErrorListener() {

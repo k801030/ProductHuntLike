@@ -38,7 +38,13 @@ public class ProductListAdapter extends BaseAdapter {
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this.activity.getApplicationContext());
         // build a request
-        JsonObjectRequest request = RequestHandler.getPosts(posts, adapter);
+        JsonObjectRequest request = RequestHandler.getPosts(new RequestHandler.getPostsCallback() {
+            @Override
+            public void onSuccess(ArrayList<ProductItem> results) {
+                posts = results;
+                adapter.notifyDataSetChanged();
+            }
+        });
         // Add the request to the RequestQueue.
         queue.add(request);
 

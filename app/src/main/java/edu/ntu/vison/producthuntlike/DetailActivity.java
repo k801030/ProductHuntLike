@@ -29,7 +29,7 @@ public class DetailActivity extends Activity {
 
         // volley request
         RequestQueue queue = Volley.newRequestQueue(this);
-        JsonObjectRequest request = RequestHandler.getPostDetail(new RequestHandler.VolleyCallback() {
+        JsonObjectRequest request = RequestHandler.getPostDetail(new RequestHandler.getPostDetailCallback() {
             @Override
             public void onSuccess(ProductItem result) {
                 TextView textView = (TextView) findViewById(R.id.detail_name);
