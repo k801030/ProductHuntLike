@@ -1,34 +1,43 @@
 package edu.ntu.vison.producthuntlike.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Objects;
 
 /**
  * Created by Vison on 2015/6/24.
  */
 public class ProductItem {
-    private int id, votes_count;
-    private String name, created_at;
-    private CharSequence tagline;
-    private String screenshot_url;
+    @SerializedName("id") public int id;
+
+    @SerializedName("name") public String name;
+
+    @SerializedName("day") public String day;
+
+    @SerializedName("votes_count") public int votesCount;
+
+    @SerializedName("created_at") public String createdAt;
+
+    @SerializedName("tagline") public String tagline;
+
+    @SerializedName("screenshot_url") public ScreenshotUrl screenshotUrl;
+
+    public class ScreenshotUrl {
+        @SerializedName("300px") public String url_300px;
+        @SerializedName("850px") public String url_850px;
+    }
+
+
+    public ProductItem() {
+
+    }
 
     // without profile_pic
-    public ProductItem(int id, String name, CharSequence tagline, int votes_count, String created_at) {
+    public ProductItem(int id, String name, String tagline, int votes_count, String created_at) {
         super();
         this.id = id;
-        this.name = name;
         this.tagline = tagline;
-        this.votes_count = votes_count;
-        this.created_at = created_at;
+        this.votesCount = votes_count;
+        this.createdAt = created_at;
     }
-    public int getId() { return id; }
-
-    public int getVoteCount() {
-        return votes_count;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public CharSequence getTagline() { return tagline; }
 }

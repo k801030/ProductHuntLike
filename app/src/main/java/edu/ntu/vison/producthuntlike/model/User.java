@@ -6,5 +6,5 @@ package edu.ntu.vison.producthuntlike.model;
 public class User {
     int id;
     String name;
-    String image_url;
+    //String image_url;
 }

@@ -33,7 +33,8 @@ public class DetailActivity extends Activity {
             @Override
             public void onSuccess(ProductItem result) {
                 TextView textView = (TextView) findViewById(R.id.detail_name);
-                textView.setText(result.getName());
+                textView.setText(result.name);
+
             }
         }, product_id);
         queue.add(request);

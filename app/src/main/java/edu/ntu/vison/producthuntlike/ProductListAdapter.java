@@ -50,12 +50,6 @@ public class ProductListAdapter extends BaseAdapter {
 
     }
 
-    /** execute it to create sample data for testing */
-    private void getSampleData() {
-        posts.add(new ProductItem(1,"Name","Description","@drawable/profile_pic",25,"time"));
-        posts.add(new ProductItem(1,"Name","Description","@drawable/profile_pic",25,"time"));
-        posts.add(new ProductItem(1, "Name", "Description", "@drawable/profile_pic",25,"time"));
-    }
 
     @Override
     public int getCount() {
@@ -84,15 +78,15 @@ public class ProductListAdapter extends BaseAdapter {
         TextView nameText = (TextView) view.findViewById(R.id.name);
         TextView descriptionText = (TextView) view.findViewById(R.id.description);
 
-        voteButton.setText("▲\n" + productItem.getVoteCount());
-        nameText.setText(productItem.getName());
-        descriptionText.setText(productItem.getTagline());
+        voteButton.setText("▲\n" + productItem.votesCount);
+        nameText.setText(productItem.name);
+        descriptionText.setText(productItem.tagline.toString());
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(activity, DetailActivity.class);
-                intent.putExtra(PRODUCT_ID, productItem.getId());
+                intent.putExtra(PRODUCT_ID, productItem.id);
                 activity.startActivity(intent);
 
             }
