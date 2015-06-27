@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import edu.ntu.vison.producthuntlike.model.ProductItem;
+import edu.ntu.vison.producthuntlike.model.ProductItemDetail;
 
 
 public class DetailActivity extends Activity {
@@ -31,7 +32,7 @@ public class DetailActivity extends Activity {
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest request = RequestHandler.getPostDetail(new RequestHandler.getPostDetailCallback() {
             @Override
-            public void onSuccess(ProductItem result) {
+            public void onSuccess(ProductItemDetail result) {
                 TextView textView = (TextView) findViewById(R.id.detail_name);
                 textView.setText(result.name);
 
