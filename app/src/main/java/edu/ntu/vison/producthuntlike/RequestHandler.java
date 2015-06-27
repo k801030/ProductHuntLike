@@ -44,6 +44,7 @@ public class RequestHandler {
                 try {
                     // get array from response
                     JSONObject detail = res.getJSONObject("post");
+
                         int id = detail.getInt("id");
                         String name = detail.getString("name");
                         String tagline = detail.getString("tagline");
