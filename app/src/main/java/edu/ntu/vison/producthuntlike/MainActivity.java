@@ -22,7 +22,7 @@ public class MainActivity extends FragmentActivity {
         public Fragment getItem(int position) {
             switch (position){
                 case 0:
-                    return productsFragment.newInstance(1, "First Page");
+                    return productListFragment.newInstance(1, "First Page");
                 case 1:
                     return SampleFragment.newInstance(2, "Second Page");
                 case 2:

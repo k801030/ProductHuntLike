@@ -10,13 +10,9 @@ import java.util.ArrayList;
 public class ProductItemDetail extends ProductItem {
     @SerializedName("comments") ArrayList<Comment> comments;
 
-    @SerializedName("makers") ArrayList<User> maker;
-
     public ArrayList<Comment> getComments() {
         return comments;
     }
 
-    public ArrayList<User> getMaker() {
-        return maker;
-    }
+
 }

@@ -2,20 +2,27 @@ package edu.ntu.vison.producthuntlike;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import edu.ntu.vison.producthuntlike.model.ProductItem;
+import edu.ntu.vison.producthuntlike.model.User;
 
 /**
  * Created by Vison on 2015/6/24.
@@ -77,11 +84,17 @@ public class ProductListAdapter extends BaseAdapter {
         Button voteButton = (Button) view.findViewById(R.id.main_product_votes);
         TextView nameText = (TextView) view.findViewById(R.id.main_product_name);
         TextView descriptionText = (TextView) view.findViewById(R.id.main_product_tagline);
+        ImageView makerImage = (ImageView) view.findViewById(R.id.maker_image);
+
 
         voteButton.setText("▲\n" + productItem.getVotesCount());
         nameText.setText(productItem.getName());
         descriptionText.setText(productItem.getTagline().toString());
+        String url = productItem.getUser().getImageUrl().getPx50();
+        UrlImageViewHelper.setUrlDrawable(makerImage, url);
 
+
+        // To start an another activity
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

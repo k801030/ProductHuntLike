@@ -2,6 +2,7 @@ package edu.ntu.vison.producthuntlike.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -20,19 +21,29 @@ public class ProductItem {
 
     @SerializedName("tagline") String tagline;
 
+    @SerializedName("user") User user;
+
+    @SerializedName("makers") ArrayList<User> makers;
+
     @SerializedName("screenshot_url") ScreenshotUrl screenshotUrl;
 
+    public User getUser() {
+        return user;
+    }
+
+    public ArrayList<User> getMakers() {
+        return makers;
+    }
+
     public class ScreenshotUrl {
-        @SerializedName("300px") String url_300px;
+        @SerializedName("300px") String px300;
 
-        @SerializedName("850px") String url_850px;
+        @SerializedName("850px") String px850;
 
-        public String getUrl_300px() {
-            return url_300px;
-        }
+        public String getUrl_300px() { return px300; }
 
         public String getUrl_850px() {
-            return url_850px;
+            return px850;
         }
     }
 

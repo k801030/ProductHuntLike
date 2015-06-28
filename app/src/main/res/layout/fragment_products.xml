@@ -34,7 +34,7 @@
             android:text="This is a description. Everyone can say anything."/>
     </LinearLayout>
     <ImageView
-        android:id="@+id/profile_pic"
+        android:id="@+id/maker_image"
         android:layout_width="@dimen/product_item_height"
         android:layout_height="@dimen/product_item_height"
         android:src="@drawable/profile_pic"/>
