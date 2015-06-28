@@ -8,36 +8,61 @@ import java.util.Objects;
  * Created by Vison on 2015/6/24.
  */
 public class ProductItem {
-    @SerializedName("id") public int id;
+    @SerializedName("id") int id;
 
-    @SerializedName("name") public String name;
+    @SerializedName("name") String name;
 
-    @SerializedName("day") public String day;
+    @SerializedName("day") String day;
 
-    @SerializedName("votes_count") public int votesCount;
+    @SerializedName("votes_count") int votesCount;
 
-    @SerializedName("created_at") public String createdAt;
+    @SerializedName("created_at") String createdAt;
 
-    @SerializedName("tagline") public String tagline;
+    @SerializedName("tagline") String tagline;
 
-    @SerializedName("screenshot_url") public ScreenshotUrl screenshotUrl;
+    @SerializedName("screenshot_url") ScreenshotUrl screenshotUrl;
 
     public class ScreenshotUrl {
-        @SerializedName("300px") public String url_300px;
-        @SerializedName("850px") public String url_850px;
+        @SerializedName("300px") String url_300px;
+
+        @SerializedName("850px") String url_850px;
+
+        public String getUrl_300px() {
+            return url_300px;
+        }
+
+        public String getUrl_850px() {
+            return url_850px;
+        }
     }
 
+    // Getter
 
-    public ProductItem() {
-
+    public int getId() {
+        return id;
     }
 
-    // without profile_pic
-    public ProductItem(int id, String name, String tagline, int votes_count, String created_at) {
-        super();
-        this.id = id;
-        this.tagline = tagline;
-        this.votesCount = votes_count;
-        this.createdAt = created_at;
+    public String getName() {
+        return name;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public int getVotesCount() {
+        return votesCount;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public String getTagline() {
+        return tagline;
+    }
+
+    public ScreenshotUrl getScreenshotUrl() {
+        return screenshotUrl;
     }
 }

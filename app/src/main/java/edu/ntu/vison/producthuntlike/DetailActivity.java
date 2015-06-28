@@ -34,7 +34,7 @@ public class DetailActivity extends Activity {
             @Override
             public void onSuccess(ProductItemDetail result) {
                 TextView textView = (TextView) findViewById(R.id.detail_name);
-                textView.setText(result.name);
+                textView.setText(result.getName());
 
             }
         }, product_id);

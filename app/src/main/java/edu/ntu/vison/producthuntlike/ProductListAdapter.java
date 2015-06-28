@@ -78,15 +78,15 @@ public class ProductListAdapter extends BaseAdapter {
         TextView nameText = (TextView) view.findViewById(R.id.name);
         TextView descriptionText = (TextView) view.findViewById(R.id.description);
 
-        voteButton.setText("▲\n" + productItem.votesCount);
-        nameText.setText(productItem.name);
-        descriptionText.setText(productItem.tagline.toString());
+        voteButton.setText("▲\n" + productItem.getVotesCount());
+        nameText.setText(productItem.getName());
+        descriptionText.setText(productItem.getTagline().toString());
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(activity, DetailActivity.class);
-                intent.putExtra(PRODUCT_ID, productItem.id);
+                intent.putExtra(PRODUCT_ID, productItem.getId());
                 activity.startActivity(intent);
 
             }
