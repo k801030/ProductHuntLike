@@ -42,7 +42,7 @@ public class SampleFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_products, container, false);
-        TextView textView = (TextView)view.findViewById(R.id.name);
+        TextView textView = (TextView)view.findViewById(R.id.main_product_name);
         textView.setText(page + " | " + title);
         return view;
     }

@@ -74,9 +74,9 @@ public class ProductListAdapter extends BaseAdapter {
 
 
         final ProductItem productItem = posts.get(i);
-        Button voteButton = (Button) view.findViewById(R.id.vote);
-        TextView nameText = (TextView) view.findViewById(R.id.name);
-        TextView descriptionText = (TextView) view.findViewById(R.id.description);
+        Button voteButton = (Button) view.findViewById(R.id.main_product_votes);
+        TextView nameText = (TextView) view.findViewById(R.id.main_product_name);
+        TextView descriptionText = (TextView) view.findViewById(R.id.main_product_tagline);
 
         voteButton.setText("▲\n" + productItem.getVotesCount());
         nameText.setText(productItem.getName());

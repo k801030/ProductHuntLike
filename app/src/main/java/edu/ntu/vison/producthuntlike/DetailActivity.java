@@ -33,7 +33,7 @@ public class DetailActivity extends Activity {
         JsonObjectRequest request = RequestHandler.getPostDetail(new RequestHandler.getPostDetailCallback() {
             @Override
             public void onSuccess(ProductItemDetail result) {
-                TextView textView = (TextView) findViewById(R.id.detail_name);
+                TextView textView = (TextView) findViewById(R.id.detail_topview_name);
                 textView.setText(result.getName());
 
             }

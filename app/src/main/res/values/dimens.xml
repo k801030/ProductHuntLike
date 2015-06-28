@@ -6,4 +6,6 @@
     <dimen name="product_item_margin">16dp</dimen>
     <dimen name="product_item_padding">16dp</dimen>
     <dimen name="product_item_height">80dp</dimen>
+
+    <dimen name="detail_product_topview">156dp</dimen>
 </resources>
