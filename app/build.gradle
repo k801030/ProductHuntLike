@@ -24,4 +24,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.mcxiaoke.volley:library:1.0.15'
     compile files('libs/gson-2.3.jar')
+    compile files('libs/urlimageviewhelper-1.0.4.jar')
 }
