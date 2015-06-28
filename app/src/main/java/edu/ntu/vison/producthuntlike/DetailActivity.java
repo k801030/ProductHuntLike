@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -33,8 +34,16 @@ public class DetailActivity extends Activity {
         JsonObjectRequest request = RequestHandler.getPostDetail(new RequestHandler.getPostDetailCallback() {
             @Override
             public void onSuccess(ProductItemDetail result) {
-                TextView textView = (TextView) findViewById(R.id.detail_topview_name);
-                textView.setText(result.getName());
+                Button topview_votes = (Button) findViewById(R.id.detail_topview_votes);
+                TextView topview_name = (TextView) findViewById(R.id.detail_topview_name);
+                TextView topview_tagline = (TextView) findViewById(R.id.detail_topview_tagline);
+                TextView topview_footer = (TextView) findViewById(R.id.detail_topview_footer);
+
+                topview_votes.setText("▲\n" + result.getVotesCount());
+                topview_name.setText(result.getName());
+                topview_tagline.setText(result.getTagline());
+                topview_footer.setText("via " + result.getUser().getName() + " 1 hour ago.");
+
 
             }
         }, product_id);

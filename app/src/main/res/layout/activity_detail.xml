@@ -15,7 +15,7 @@
         android:background="#fff"
         >
         <Button
-            android:id="@+id/vote"
+            android:id="@+id/detail_topview_votes"
             android:layout_width="56dp"
             android:layout_height="@dimen/product_item_height"
             android:padding="0dp"
@@ -55,7 +55,7 @@
                 android:id="@+id/detail_topview_footer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="via KEVIN  15 hours ago"/>
+                android:text="via KEVIN 1 hours ago" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
