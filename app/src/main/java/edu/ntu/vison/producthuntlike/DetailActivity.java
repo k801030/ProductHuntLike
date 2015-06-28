@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -22,12 +23,18 @@ import edu.ntu.vison.producthuntlike.model.ProductItemDetail;
 public class DetailActivity extends Activity {
     public final static String PRODUCT_ID = "edu.ntu.vison.producthuntlike.product_id";
     private int product_id;
+    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         product_id = intent.getIntExtra(PRODUCT_ID, 0);
+
+        setContentView(R.layout.activity_detail);
+        view = this.findViewById(android.R.id.content);
+        view.setVisibility(View.INVISIBLE);
+
 
         // volley request
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -44,12 +51,12 @@ public class DetailActivity extends Activity {
                 topview_tagline.setText(result.getTagline());
                 topview_footer.setText("via " + result.getUser().getName() + " 1 hour ago.");
 
-
+                // when finished, show view
+                view.setVisibility(View.VISIBLE);
             }
         }, product_id);
         queue.add(request);
 
-        setContentView(R.layout.activity_detail);
     }
 
     @Override
