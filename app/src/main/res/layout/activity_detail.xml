@@ -5,6 +5,7 @@
     tools:context="edu.ntu.vison.producthuntlike.DetailActivity"
     android:background="#fff">
 
+    <!-- Topview -->
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -58,6 +59,8 @@
                 android:text="via KEVIN 1 hours ago" />
         </LinearLayout>
     </LinearLayout>
+
+    <!-- Comments Bar -->
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
@@ -70,5 +73,10 @@
             android:text="Comment"/>
 
     </LinearLayout>
+
+    <ExpandableListView
+        android:id="@+id/detail_comment_listview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"></ExpandableListView>
 
 </LinearLayout>

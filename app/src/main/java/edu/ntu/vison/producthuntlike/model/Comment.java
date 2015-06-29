@@ -22,7 +22,7 @@ public class Comment {
 
     @SerializedName("user") User user;
 
-    @SerializedName("child_comments") ArrayList<Comment> child_comments;
+    @SerializedName("child_comments") ArrayList<Comment> childComments;
 
     public int getId() {
         return id;
@@ -52,7 +52,7 @@ public class Comment {
         return user;
     }
 
-    public ArrayList<Comment> getChild_comments() {
-        return child_comments;
+    public ArrayList<Comment> getChildComments() {
+        return childComments;
     }
 }

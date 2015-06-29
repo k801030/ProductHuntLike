@@ -1,0 +1,94 @@
+package edu.ntu.vison.producthuntlike;
+
+import android.content.Context;
+import android.content.Intent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import edu.ntu.vison.producthuntlike.model.Comment;
+
+/**
+ * Created by Vison on 2015/6/29.
+ */
+public class CommentListAdapter extends BaseExpandableListAdapter {
+    private Context context;
+    private ArrayList<Comment> commentGroupList;
+    private HashMap<Integer, ArrayList<Comment>> commentChildList;
+
+    public CommentListAdapter(Context context, ArrayList<Comment> commentGroupList, HashMap<Integer,ArrayList<Comment>> commentChildList) {
+        this.context = context;
+        this.commentGroupList = commentGroupList;
+        this.commentChildList = commentChildList;
+    }
+
+
+
+    @Override
+    public Comment getGroup(int groupPosition) {
+        return commentGroupList.get(groupPosition);
+    }
+
+    @Override
+    public Comment getChild(int groupPosition, int childPosition) {
+        return commentChildList.get(groupPosition).get(childPosition);
+    }
+
+    @Override
+    public int getGroupCount() {
+        return commentGroupList.size();
+    }
+
+    @Override
+    public int getChildrenCount(int groupPosition) {
+        return commentChildList.get(groupPosition).size();
+    }
+
+    @Override
+    public long getGroupId(int groupPosition) {
+        return groupPosition;
+    }
+
+    @Override
+    public long getChildId(int groupPosition, int childPosition) {
+        return childPosition;
+    }
+
+    @Override
+    public boolean hasStableIds() {
+        return false;
+    }
+
+    @Override
+    public View getGroupView(int groupPosition, boolean isExpanded, View view, ViewGroup parent) {
+        if (view == null) {
+            LayoutInflater inflater = LayoutInflater.from(this.context);
+            view = inflater.inflate(R.layout.detail_comment, null);
+        }
+        TextView textView = (TextView) view.findViewById(R.id.detail_comment_textview);
+        textView.setText(getGroup(groupPosition).getBody());
+        return view;
+    }
+
+    @Override
+    public View getChildView(int groupPosition, int childPosition, boolean isExpanded, View view, ViewGroup parent) {
+        if (view == null) {
+            LayoutInflater inflater = LayoutInflater.from(this.context);
+            view = inflater.inflate(R.layout.detail_comment_child, null);
+        }
+        TextView textView = (TextView) view.findViewById(R.id.detail_comment_child_textview);
+        textView.setText(getChild(groupPosition, childPosition).getBody());
+        return view;
+    }
+
+    @Override
+    public boolean isChildSelectable(int groupPosition, int childPosition) {
+        return false;
+    }
+}
