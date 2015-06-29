@@ -1,12 +1,10 @@
-package edu.ntu.vison.producthuntlike;
+package edu.ntu.vison.producthuntlike.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,8 +12,8 @@ import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
+import edu.ntu.vison.producthuntlike.R;
 import edu.ntu.vison.producthuntlike.model.Comment;
 
 /**
@@ -73,7 +71,7 @@ public class CommentListAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded, View view, ViewGroup parent) {
         if (view == null) {
             LayoutInflater inflater = LayoutInflater.from(this.context);
-            view = inflater.inflate(R.layout.detail_comment, null);
+            view = inflater.inflate(R.layout.adpater_comment_list_group, null);
         }
         // get components
         ImageView userImage = (ImageView) view.findViewById(R.id.user_image);
@@ -91,7 +89,7 @@ public class CommentListAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, int childPosition, boolean isExpanded, View view, ViewGroup parent) {
         if (view == null) {
             LayoutInflater inflater = LayoutInflater.from(this.context);
-            view = inflater.inflate(R.layout.detail_comment_child, null);
+            view = inflater.inflate(R.layout.adapter_comment_list_child, null);
         }
         // get components
         ImageView userImage = (ImageView) view.findViewById(R.id.user_image);

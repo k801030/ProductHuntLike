@@ -1,4 +1,4 @@
-package edu.ntu.vison.producthuntlike;
+package edu.ntu.vison.producthuntlike.framgent;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
+
+import edu.ntu.vison.producthuntlike.R;
+import edu.ntu.vison.producthuntlike.adapter.ProductListAdapter;
 
 /**
  * A fragment representing a list of Items.
@@ -70,7 +73,7 @@ public class productListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_product_item_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_product_list, container, false);
 
         // Set the adapter
         productListAdapter = new ProductListAdapter(this.getActivity());

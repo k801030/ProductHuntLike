@@ -1,16 +1,13 @@
-package edu.ntu.vison.producthuntlike;
+package edu.ntu.vison.producthuntlike.activity;
 
 import android.app.Activity;
-import android.app.ExpandableListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
@@ -18,15 +15,13 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
+import edu.ntu.vison.producthuntlike.R;
+import edu.ntu.vison.producthuntlike.RequestHandler;
+import edu.ntu.vison.producthuntlike.adapter.CommentListAdapter;
 import edu.ntu.vison.producthuntlike.model.Comment;
-import edu.ntu.vison.producthuntlike.model.ProductItem;
 import edu.ntu.vison.producthuntlike.model.ProductItemDetail;
 
 
@@ -75,12 +70,12 @@ public class DetailActivity extends Activity {
 
                 // Prepare for data
                 HashMap<Integer, ArrayList<Comment>> commentChildList = new HashMap<Integer, ArrayList<Comment>>();
-                for (int i=0;i<result.getComments().size();i++) {
+                for (int i = 0; i < result.getComments().size(); i++) {
                     commentChildList.put(i, result.getComments().get(i).getChildComments());
                 }
-                CommentListAdapter  listAdapter = new CommentListAdapter(context, result.getComments(), commentChildList);
+                CommentListAdapter listAdapter = new CommentListAdapter(context, result.getComments(), commentChildList);
                 comments_listview.setAdapter(listAdapter);
-                for(int i=0;i<result.getComments().size();i++){
+                for (int i = 0; i < result.getComments().size(); i++) {
                     comments_listview.expandGroup(i);
                 }
                 // when finished, show view

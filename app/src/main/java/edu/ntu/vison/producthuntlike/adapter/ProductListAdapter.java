@@ -1,9 +1,7 @@
-package edu.ntu.vison.producthuntlike;
+package edu.ntu.vison.producthuntlike.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +15,12 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
+import edu.ntu.vison.producthuntlike.activity.DetailActivity;
+import edu.ntu.vison.producthuntlike.R;
+import edu.ntu.vison.producthuntlike.RequestHandler;
 import edu.ntu.vison.producthuntlike.model.ProductItem;
-import edu.ntu.vison.producthuntlike.model.User;
 
 /**
  * Created by Vison on 2015/6/24.
@@ -77,7 +75,7 @@ public class ProductListAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
 
         if (view == null)
-            view = inflater.inflate(R.layout.fragment_products, null);
+            view = inflater.inflate(R.layout.adapter_product_list, null);
 
 
         final ProductItem productItem = posts.get(i);

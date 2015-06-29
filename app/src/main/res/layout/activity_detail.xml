@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="edu.ntu.vison.producthuntlike.DetailActivity"
+    tools:context="edu.ntu.vison.producthuntlike.activity.DetailActivity"
     android:background="#fff">
 
     <!-- Topview -->

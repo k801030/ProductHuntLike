@@ -1,4 +1,4 @@
-package edu.ntu.vison.producthuntlike;
+package edu.ntu.vison.producthuntlike.framgent;
 
 
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import edu.ntu.vison.producthuntlike.R;
 
 
 /**
@@ -41,7 +43,7 @@ public class SampleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_products, container, false);
+        View view =  inflater.inflate(R.layout.adapter_product_list, container, false);
         TextView textView = (TextView)view.findViewById(R.id.main_product_name);
         textView.setText(page + " | " + title);
         return view;
