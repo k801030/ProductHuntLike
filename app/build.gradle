@@ -26,6 +26,8 @@ dependencies {
     compile 'com.mcxiaoke.volley:library:1.0.15'
 
     compile files('libs/gson-2.3.jar')
-    compile files('libs/urlimageviewhelper-1.0.4.jar')
-    compile 'com.makeramen:roundedimageview:2.1.0'
+    compile files('libs/urlimageviewhelper-1.0.4.jar') // method that can load imageview from url
+    compile 'com.makeramen:roundedimageview:2.1.0' // rounded image component
+    compile 'com.astuetz:pagerslidingtabstrip:1.0.1' // slide tab component
+
 }
