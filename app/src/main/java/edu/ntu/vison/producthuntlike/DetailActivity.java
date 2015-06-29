@@ -60,6 +60,13 @@ public class DetailActivity extends Activity {
                 TextView topview_footer = (TextView) findViewById(R.id.detail_topview_footer);
                 ExpandableListView comments_listview = (ExpandableListView) findViewById(R.id.detail_comment_listview);
 
+                // let the listview expander cannot be collapsed
+                comments_listview.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+                    @Override
+                    public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+                        return true;
+                    }
+                });
                 topview_votes.setText("▲\n" + result.getVotesCount());
                 topview_name.setText(result.getName());
                 topview_tagline.setText(result.getTagline());
@@ -73,7 +80,9 @@ public class DetailActivity extends Activity {
                 }
                 CommentListAdapter  listAdapter = new CommentListAdapter(context, result.getComments(), commentChildList);
                 comments_listview.setAdapter(listAdapter);
-
+                for(int i=0;i<result.getComments().size();i++){
+                    comments_listview.expandGroup(i);
+                }
                 // when finished, show view
                 view.setVisibility(View.VISIBLE);
             }

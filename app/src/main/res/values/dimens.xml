@@ -4,10 +4,12 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     
     <dimen name="product_item_margin">16dp</dimen>
-    <dimen name="product_item_padding">16dp</dimen>
+    <dimen name="product_item_padding">8dp</dimen>
     <dimen name="product_item_height">80dp</dimen>
-    <dimen name="product_item_maker_image_size">60dp</dimen>
-    <dimen name="product_item_maker_image_radius">30dp</dimen>
+    <dimen name="product_item_maker_image_size">56dp</dimen>
+    <dimen name="product_item_maker_image_radius">28dp</dimen>
 
     <dimen name="detail_product_topview">156dp</dimen>
+    <dimen name="detail_product_left">56dp</dimen>
+
 </resources>

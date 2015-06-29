@@ -6,7 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -71,8 +75,15 @@ public class CommentListAdapter extends BaseExpandableListAdapter {
             LayoutInflater inflater = LayoutInflater.from(this.context);
             view = inflater.inflate(R.layout.detail_comment, null);
         }
-        TextView textView = (TextView) view.findViewById(R.id.detail_comment_textview);
-        textView.setText(getGroup(groupPosition).getBody());
+        // get components
+        ImageView userImage = (ImageView) view.findViewById(R.id.user_image);
+        TextView userName = (TextView) view.findViewById(R.id.user_name);
+        TextView commentBody = (TextView) view.findViewById(R.id.comment_body);
+
+        // set components
+        UrlImageViewHelper.setUrlDrawable(userImage, getGroup(groupPosition).getUser().getImageUrl().getPx50());
+        userName.setText(getGroup(groupPosition).getUser().getName());
+        commentBody.setText(getGroup(groupPosition).getBody());
         return view;
     }
 
@@ -82,7 +93,14 @@ public class CommentListAdapter extends BaseExpandableListAdapter {
             LayoutInflater inflater = LayoutInflater.from(this.context);
             view = inflater.inflate(R.layout.detail_comment_child, null);
         }
-        TextView textView = (TextView) view.findViewById(R.id.detail_comment_child_textview);
+        // get components
+        ImageView userImage = (ImageView) view.findViewById(R.id.user_image);
+        TextView userName = (TextView) view.findViewById(R.id.user_name);
+        TextView commentBody = (TextView) view.findViewById(R.id.comment_body);
+
+        // set components
+        UrlImageViewHelper.setUrlDrawable(userImage, getChild(groupPosition, childPosition).getUser().getImageUrl().getPx50());
+        TextView textView = (TextView) view.findViewById(R.id.comment_body);
         textView.setText(getChild(groupPosition, childPosition).getBody());
         return view;
     }
