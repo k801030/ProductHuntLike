@@ -1,5 +1,6 @@
 package edu.ntu.vison.producthuntlike.activity;
 
+import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ public class MainActivity extends FragmentActivity {
         pager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
 
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        tabs.setUnderlineColor((getResources().getColor(R.color.main_color)));
         tabs.setViewPager(pager);
 
     }
