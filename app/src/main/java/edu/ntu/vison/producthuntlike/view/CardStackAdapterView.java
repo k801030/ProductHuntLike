@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 /**
  * Created by Vison on 2015/7/1.
  */
-public class CardStackAdapterView extends AdapterView<ListAdapter> {
+public class CardStackAdapterView extends AdapterView {
     private Adapter mAdapter;
     private AdapterDataSetObserver mDataSetObserver;
 
@@ -28,6 +29,24 @@ public class CardStackAdapterView extends AdapterView<ListAdapter> {
 
     public CardStackAdapterView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+
+        if(mAdapter == null) {
+            return;
+        }
+
+        if(getChildCount() == 0) {
+            for(int i=0;i<mAdapter.getCount();i++) {
+                View child = mAdapter.getView(i, null, this);
+                addAndMeasureChild(child);
+            }
+        }
+
+        setChildrenLayout();
     }
 
     @Override
@@ -65,6 +84,28 @@ public class CardStackAdapterView extends AdapterView<ListAdapter> {
 
     @Override
     public void setSelection(int i) {
+
+    }
+
+    /**
+     * Adds a view as a child view and measure it
+     *
+     * @param child The view to add
+     */
+    private void addAndMeasureChild(View child) {
+        // ??
+        LayoutParams params = child.getLayoutParams();
+        if(params == null) {
+            params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        }
+        addViewInLayout(child, -1, params, true);
+        child.measure(MeasureSpec.EXACTLY, MeasureSpec.EXACTLY);
+    }
+
+    /**
+     * Set the children to proper position
+     */
+    private void setChildrenLayout() {
 
     }
 
