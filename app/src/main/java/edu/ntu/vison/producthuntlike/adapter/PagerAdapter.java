@@ -4,8 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import edu.ntu.vison.producthuntlike.framgent.CardStackFragment;
 import edu.ntu.vison.producthuntlike.framgent.SampleFragment;
-import edu.ntu.vison.producthuntlike.framgent.productListFragment;
+import edu.ntu.vison.producthuntlike.framgent.ProductListFragment;
 
 /**
  * Created by Vison on 2015/6/29.
@@ -22,11 +23,11 @@ public class PagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return productListFragment.newInstance(1, "First Page");
+                return new CardStackFragment();
             case 1:
-                return SampleFragment.newInstance(2, "Second Page");
+                return new ProductListFragment();
             case 2:
-                return SampleFragment.newInstance(3, "Third Page");
+                return new SampleFragment();
             default:
                 return new SampleFragment();
         }

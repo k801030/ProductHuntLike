@@ -20,7 +20,7 @@ import edu.ntu.vison.producthuntlike.adapter.ProductListAdapter;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class productListFragment extends Fragment {
+public class ProductListFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -44,8 +44,8 @@ public class productListFragment extends Fragment {
 
 
     // TODO: Rename and change types of parameters
-    public static productListFragment newInstance(int param1, String param2) {
-        productListFragment fragment = new productListFragment();
+    public static ProductListFragment newInstance(int param1, String param2) {
+        ProductListFragment fragment = new ProductListFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -57,7 +57,7 @@ public class productListFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public productListFragment() {
+    public ProductListFragment() {
     }
 
     @Override

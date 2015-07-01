@@ -10,6 +10,7 @@ import android.widget.AdapterView;
  * Created by Vison on 2015/7/1.
  */
 public class CustomAdapterView extends AdapterView {
+    private Adapter mAdapter;
 
     public CustomAdapterView(Context context) {
         super(context);
@@ -25,13 +26,15 @@ public class CustomAdapterView extends AdapterView {
 
     @Override
     public void setAdapter(Adapter adapter) {
-
+        mAdapter = adapter;
     }
 
     @Override
     public Adapter getAdapter() {
-        return null;
+        return mAdapter;
     }
+
+
 
     @Override
     public View getSelectedView() {
