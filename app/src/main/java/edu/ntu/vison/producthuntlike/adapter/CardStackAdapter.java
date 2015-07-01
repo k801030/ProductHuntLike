@@ -7,9 +7,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
 import java.util.ArrayList;
 
 import edu.ntu.vison.producthuntlike.R;
+import edu.ntu.vison.producthuntlike.RequestHandler;
 import edu.ntu.vison.producthuntlike.model.ProductItem;
 
 /**
@@ -20,8 +25,22 @@ public class CardStackAdapter extends BaseAdapter {
     private Context mContext;
 
     // constructor
-    public CardStackAdapter(Context context,ArrayList<ProductItem> cards) {
-        this.cards = cards;
+    public CardStackAdapter(Context context) {
+        mContext = context;
+        cards = new ArrayList<ProductItem>();
+
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(mContext);
+        // build a request
+        JsonObjectRequest request = RequestHandler.getPosts(new RequestHandler.getPostsCallback() {
+            @Override
+            public void onSuccess(ArrayList<ProductItem> results) {
+                cards = results;
+                notifyDataSetChanged();
+            }
+        });
+        // Add the request to the RequestQueue.
+        queue.add(request);
     }
 
     @Override

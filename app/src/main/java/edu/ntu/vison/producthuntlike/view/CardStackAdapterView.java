@@ -9,18 +9,18 @@ import android.widget.AdapterView;
 /**
  * Created by Vison on 2015/7/1.
  */
-public class CustomAdapterView extends AdapterView {
+public class CardStackAdapterView extends AdapterView {
     private Adapter mAdapter;
 
-    public CustomAdapterView(Context context) {
+    public CardStackAdapterView(Context context) {
         super(context);
     }
 
-    public CustomAdapterView(Context context, AttributeSet attrs) {
+    public CardStackAdapterView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public CustomAdapterView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CardStackAdapterView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
