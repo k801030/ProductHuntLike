@@ -159,17 +159,16 @@ public class CardStackAdapterView extends AdapterView implements View.OnTouchLis
                 Log.i("ACTION_DOWN", x + "," + y);
                 break;
             case MotionEvent.ACTION_MOVE:
-                // Find the index of the active pointer and fetch its position
+                // Returns the X coordinate of this event for the given pointer
                 final float moveX = event.getX(mPointerId);
                 final float moveY = event.getY(mPointerId);
 
                 // Calculate the distance moved
                 final float dx = moveX - mDownTouchX;
                 final float dy = moveY - mDownTouchY;
-                view.setTranslationX(mOriginViewX + dx);
-                view.setTranslationY(mOriginViewY + dy);
+                view.setTranslationX(view.getTranslationX() + dx);
+                view.setTranslationY(view.getTranslationY() + dy);
 
-                Log.i("ACTION_MOVE", mOriginViewX + "," + dx);
                 break;
             default:
                 break;
