@@ -60,6 +60,9 @@ public class CardStackAdapterView extends AdapterView implements View.OnTouchLis
         // set top view touch listener
         View topView = getChildAt(getChildCount()-1);
         topView.setOnTouchListener(this);
+        mOriginViewX = topView.getTranslationX();
+        mOriginViewY = topView.getTranslationY();
+
         Log.d("SetOnTouchListener", "");
         invalidate();
     }
@@ -154,8 +157,10 @@ public class CardStackAdapterView extends AdapterView implements View.OnTouchLis
                 float y = event.getY(mPointerId);
                 mDownTouchX = x;
                 mDownTouchY = y;
-                mOriginViewX = view.getTranslationX();
-                mOriginViewY = view.getTranslationY();
+
+                view.setPivotX(x);
+                view.setPivotY(y);
+
                 Log.i("ACTION_DOWN", x + "," + y);
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -168,6 +173,14 @@ public class CardStackAdapterView extends AdapterView implements View.OnTouchLis
                 final float dy = moveY - mDownTouchY;
                 view.setTranslationX(view.getTranslationX() + dx);
                 view.setTranslationY(view.getTranslationY() + dy);
+
+                int maxDegree = 10;
+                float a = view.getTranslationX() + dx - mOriginViewX;
+                float b = getWidth()/2;
+                Log.i("a & b", a + "," + b);
+                float rotation = (a/b) * maxDegree;
+                Log.i("ROTATION", Float.toString(rotation));
+                view.setRotation(rotation); // 0 to 360
 
                 break;
             default:
