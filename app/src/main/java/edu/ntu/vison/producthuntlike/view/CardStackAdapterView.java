@@ -31,9 +31,32 @@ public class CardStackAdapterView extends AdapterView {
         super(context, attrs, defStyleAttr);
     }
 
+
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
+
+        for(int i=0;i<getChildCount();i++) {
+            View child = getChildAt(i);
+            Integer width = child.getMeasuredWidth();
+            Integer height = child.getMeasuredHeight();
+            child.layout(0, 0, left+width, top+height);
+        }
+
+        invalidate();
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        for(int i=0;i<getChildCount();i++) {
+            View child = getChildAt(i);
+            child.measure(widthMeasureSpec, heightMeasureSpec);
+        }
+    }
+
+    private void addChildrenToView() {
 
         if(mAdapter == null) {
             return;
@@ -42,17 +65,18 @@ public class CardStackAdapterView extends AdapterView {
         if(getChildCount() == 0) {
             for(int i=0;i<mAdapter.getCount();i++) {
                 View child = mAdapter.getView(i, null, this);
-                addAndMeasureChild(child);
+
+                LayoutParams params = child.getLayoutParams();
+                if(params == null) {
+                    params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+                }
+                addViewInLayout(child, 0, params, true);
             }
         }
 
-        setChildrenLayout();
     }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-    }
+
 
     @Override
     public void setAdapter(Adapter adapter) {
@@ -87,37 +111,14 @@ public class CardStackAdapterView extends AdapterView {
 
     }
 
-    /**
-     * Adds a view as a child view and measure it
-     *
-     * @param child The view to add
-     */
-    private void addAndMeasureChild(View child) {
-        // ??
-        LayoutParams params = child.getLayoutParams();
-        if(params == null) {
-            params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        }
-        addViewInLayout(child, -1, params, true);
-        child.measure(MeasureSpec.EXACTLY, MeasureSpec.EXACTLY);
-    }
-
-    /**
-     * Set the children to proper position
-     */
-    private void setChildrenLayout() {
-
-    }
-
     private class AdapterDataSetObserver extends DataSetObserver {
         @Override
         public void onChanged() {
-            super.onChanged();
+            addChildrenToView();
             requestLayout();
         }
         @Override
         public void onInvalidated() {
-            super.onInvalidated();
             requestLayout();
         }
     }

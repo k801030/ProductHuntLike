@@ -8,8 +8,9 @@
         android:text="@string/hello_blank_fragment" />
     <edu.ntu.vison.producthuntlike.view.CardStackAdapterView
         android:id="@+id/card_stack"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:background="#ffffaa"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     </edu.ntu.vison.producthuntlike.view.CardStackAdapterView>
 </FrameLayout>

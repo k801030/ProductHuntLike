@@ -61,8 +61,9 @@ public class CardStackAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         if(view == null) {
-            view = LayoutInflater.from(mContext).inflate(R.layout.adapter_card_stack, null);
+            view = LayoutInflater.from(mContext).inflate(R.layout.adapter_card_stack, viewGroup, false);
         }
+
         TextView name = (TextView) view.findViewById(R.id.name);
         name.setText(cards.get(i).getName());
         return view;

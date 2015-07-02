@@ -42,7 +42,7 @@ public class CardStackFragment extends Fragment {
         mCardStackView = (CardStackAdapterView) view.findViewById(R.id.card_stack);
         mCardStackView.setAdapter(mAdapter);
 
-        return inflater.inflate(R.layout.fragment_card_stack, container, false);
+        return view;
     }
 
 
