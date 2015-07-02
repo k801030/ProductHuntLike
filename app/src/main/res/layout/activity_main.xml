@@ -7,7 +7,7 @@
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="48dp" />
-    <android.support.v4.view.ViewPager
+    <edu.ntu.vison.producthuntlike.view.UnswipeableViewPager
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/pager"
         android:layout_width="match_parent"

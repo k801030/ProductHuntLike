@@ -22,6 +22,9 @@ public class CardStackAdapterView extends AdapterView implements View.OnTouchLis
 
     private float mDownTouchX;
     private float mDownTouchY;
+    private float mOriginViewX;
+    private float mOriginViewY;
+
     private int mPointerId;
 
     public CardStackAdapterView(Context context) {
@@ -45,15 +48,17 @@ public class CardStackAdapterView extends AdapterView implements View.OnTouchLis
             return;
         }
 
-        for(int i=0;i<getChildCount();i++) {
+        for(int i=0;i<getChildCount();i++) { // in a decreasing order
             View child = getChildAt(i);
             Integer width = child.getMeasuredWidth();
             Integer height = child.getMeasuredHeight();
-            child.layout(0, 0, left + width, top + height);
+            Integer childTop =  (getHeight()-height)/2;
+            Integer childLeft = (getWidth()-width)/2;
+            child.layout(childLeft, childTop, childLeft + width, childTop + height);
         }
 
         // set top view touch listener
-        View topView = getChildAt(0);
+        View topView = getChildAt(getChildCount()-1);
         topView.setOnTouchListener(this);
         Log.d("SetOnTouchListener", "");
         invalidate();
@@ -65,7 +70,10 @@ public class CardStackAdapterView extends AdapterView implements View.OnTouchLis
 
         for(int i=0;i<getChildCount();i++) {
             View child = getChildAt(i);
-            child.measure(widthMeasureSpec, heightMeasureSpec);
+            LayoutParams params = child.getLayoutParams();
+            int childSpecWidth = getChildMeasureSpec(widthMeasureSpec, 0, params.width);
+            int childSpecHeight = getChildMeasureSpec(heightMeasureSpec, 0, params.height);
+            child.measure(childSpecWidth, childSpecHeight);
         }
     }
 
@@ -137,7 +145,7 @@ public class CardStackAdapterView extends AdapterView implements View.OnTouchLis
     // Implement onTouchListener
     @Override
     public boolean onTouch(View view, MotionEvent event) {
-        Log.d("ON_TOUCH", Integer.toString(event.getActionMasked()));
+
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
                 LayoutParams params = view.getLayoutParams();
@@ -146,24 +154,27 @@ public class CardStackAdapterView extends AdapterView implements View.OnTouchLis
                 float y = event.getY(mPointerId);
                 mDownTouchX = x;
                 mDownTouchY = y;
+                mOriginViewX = view.getTranslationX();
+                mOriginViewY = view.getTranslationY();
+                Log.i("ACTION_DOWN", x + "," + y);
                 break;
             case MotionEvent.ACTION_MOVE:
                 // Find the index of the active pointer and fetch its position
-                final int pointerIndexMove = event.findPointerIndex(mPointerId);
-                final float moveX = event.getX(pointerIndexMove);
-                final float moveY = event.getY(pointerIndexMove);
+                final float moveX = event.getX(mPointerId);
+                final float moveY = event.getY(mPointerId);
 
                 // Calculate the distance moved
                 final float dx = moveX - mDownTouchX;
                 final float dy = moveY - mDownTouchY;
-                view.setTranslationX(moveX);
-                view.setTranslationY(moveY);
+                view.setTranslationX(mOriginViewX + dx);
+                view.setTranslationY(mOriginViewY + dy);
 
-                Log.d("ON_TOUCH", moveX + "," + moveY);
+                Log.i("ACTION_MOVE", mOriginViewX + "," + dx);
                 break;
             default:
                 break;
         }
-        return false;
+        return true;
     }
+
 }
