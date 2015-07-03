@@ -68,4 +68,8 @@ public class CardStackAdapter extends BaseAdapter {
         name.setText(cards.get(i).getName());
         return view;
     }
+
+    public void removeCardAtTop() {
+        cards.remove(0);
+    }
 }

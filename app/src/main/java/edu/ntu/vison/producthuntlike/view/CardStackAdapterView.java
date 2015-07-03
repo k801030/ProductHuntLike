@@ -14,15 +14,18 @@ import android.widget.ListAdapter;
 import java.util.List;
 
 import edu.ntu.vison.producthuntlike.CardOnTouchListener;
+import edu.ntu.vison.producthuntlike.adapter.CardStackAdapter;
 
 /**
  * Created by Vison on 2015/7/1.
  */
 public class CardStackAdapterView extends AdapterView {
-    private Adapter mAdapter;
+    private CardStackAdapter mAdapter;
     private AdapterDataSetObserver mDataSetObserver;
     private CardOnTouchListener mOnTouchListener;
 
+    private View mTopView;
+    private int mTopViewAt;
 
     public CardStackAdapterView(Context context) {
         super(context);
@@ -52,12 +55,27 @@ public class CardStackAdapterView extends AdapterView {
             Integer childTop =  (getHeight()-height)/2;
             Integer childLeft = (getWidth()-width)/2;
             child.layout(childLeft, childTop, childLeft + width, childTop + height);
+            child.getBackground().setAlpha(255);
         }
 
         // set top view touch listener
-        View topView = getChildAt(getChildCount()-1);
-        mOnTouchListener = new CardOnTouchListener(topView);
-        topView.setOnTouchListener(mOnTouchListener);
+        mTopViewAt = getChildCount()-1;
+        mTopView = getChildAt(mTopViewAt);
+        mOnTouchListener = new CardOnTouchListener(mTopView) {
+            @Override
+            public void onMovedBeyondLeftBorder() {
+
+                mAdapter.removeCardAtTop();
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onMovedBeyondRightBorder() {
+                mAdapter.removeCardAtTop();
+                mAdapter.notifyDataSetChanged();
+            }
+        };
+        mTopView.setOnTouchListener(mOnTouchListener);
         Log.d("SetOnTouchListener", "");
 
         invalidate();
@@ -81,23 +99,22 @@ public class CardStackAdapterView extends AdapterView {
         if(mAdapter == null) {
             return;
         }
+        removeAllViewsInLayout();
 
-        if(getChildCount() == 0) {
-            for(int i=0;i<mAdapter.getCount();i++) {
-                View child = mAdapter.getView(i, null, this);
+        for(int i=0;i<mAdapter.getCount();i++) {
+            View child = mAdapter.getView(i, null, this);
 
-                LayoutParams params = child.getLayoutParams();
-                if(params == null) {
-                    params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-                }
-                addViewInLayout(child, 0, params, true);
+            LayoutParams params = child.getLayoutParams();
+            if(params == null) {
+                params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
             }
+            addViewInLayout(child, 0, params, true);
         }
+
 
     }
 
-    @Override
-    public void setAdapter(Adapter adapter) {
+    public void setAdapter(CardStackAdapter adapter) {
         if(mAdapter != null && mDataSetObserver != null) {
             /**
              *  Calling unregisterDataSetObserver(observer) is not actually mandatory,
@@ -115,9 +132,15 @@ public class CardStackAdapterView extends AdapterView {
     }
 
     @Override
+    public void setAdapter(Adapter adapter) {
+
+    }
+
+    @Override
     public Adapter getAdapter() {
         return mAdapter;
     }
+
 
     @Override
     public View getSelectedView() {
