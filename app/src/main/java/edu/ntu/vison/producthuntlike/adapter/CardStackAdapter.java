@@ -5,11 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 
 import java.util.ArrayList;
 
@@ -64,8 +66,14 @@ public class CardStackAdapter extends BaseAdapter {
             view = LayoutInflater.from(mContext).inflate(R.layout.adapter_card_stack, viewGroup, false);
         }
 
+        ProductItem card = cards.get(i);
+
         TextView name = (TextView) view.findViewById(R.id.name);
-        name.setText(cards.get(i).getName());
+        name.setText(card.getName());
+        TextView tagline = (TextView) view.findViewById(R.id.tagline);
+        tagline.setText(card.getTagline());
+        ImageView screenshot = (ImageView) view.findViewById(R.id.screenshot);
+        UrlImageViewHelper.setUrlDrawable(screenshot, card.getScreenshotUrl().getUrl_300px());
         return view;
     }
 
