@@ -13,19 +13,16 @@ import android.widget.ListAdapter;
 
 import java.util.List;
 
+import edu.ntu.vison.producthuntlike.CardOnTouchListener;
+
 /**
  * Created by Vison on 2015/7/1.
  */
-public class CardStackAdapterView extends AdapterView implements View.OnTouchListener {
+public class CardStackAdapterView extends AdapterView {
     private Adapter mAdapter;
     private AdapterDataSetObserver mDataSetObserver;
+    private CardOnTouchListener mOnTouchListener;
 
-    private float mDownTouchX;
-    private float mDownTouchY;
-    private float mOriginViewX;
-    private float mOriginViewY;
-
-    private int mPointerId;
 
     public CardStackAdapterView(Context context) {
         super(context);
@@ -59,11 +56,10 @@ public class CardStackAdapterView extends AdapterView implements View.OnTouchLis
 
         // set top view touch listener
         View topView = getChildAt(getChildCount()-1);
-        topView.setOnTouchListener(this);
-        mOriginViewX = topView.getTranslationX();
-        mOriginViewY = topView.getTranslationY();
-
+        mOnTouchListener = new CardOnTouchListener(topView);
+        topView.setOnTouchListener(mOnTouchListener);
         Log.d("SetOnTouchListener", "");
+
         invalidate();
     }
 
@@ -145,48 +141,6 @@ public class CardStackAdapterView extends AdapterView implements View.OnTouchLis
         }
     }
 
-    // Implement onTouchListener
-    @Override
-    public boolean onTouch(View view, MotionEvent event) {
 
-        switch (event.getActionMasked()) {
-            case MotionEvent.ACTION_DOWN:
-                LayoutParams params = view.getLayoutParams();
-                mPointerId = event.getPointerId(0);
-                float x = event.getX(mPointerId);
-                float y = event.getY(mPointerId);
-                mDownTouchX = x;
-                mDownTouchY = y;
-
-                view.setPivotX(x);
-                view.setPivotY(y);
-
-                Log.i("ACTION_DOWN", x + "," + y);
-                break;
-            case MotionEvent.ACTION_MOVE:
-                // Returns the X coordinate of this event for the given pointer
-                final float moveX = event.getX(mPointerId);
-                final float moveY = event.getY(mPointerId);
-
-                // Calculate the distance moved
-                final float dx = moveX - mDownTouchX;
-                final float dy = moveY - mDownTouchY;
-                view.setTranslationX(view.getTranslationX() + dx);
-                view.setTranslationY(view.getTranslationY() + dy);
-
-                int maxDegree = 10;
-                float a = view.getTranslationX() + dx - mOriginViewX;
-                float b = getWidth()/2;
-                Log.i("a & b", a + "," + b);
-                float rotation = (a/b) * maxDegree;
-                Log.i("ROTATION", Float.toString(rotation));
-                view.setRotation(rotation); // 0 to 360
-
-                break;
-            default:
-                break;
-        }
-        return true;
-    }
 
 }
