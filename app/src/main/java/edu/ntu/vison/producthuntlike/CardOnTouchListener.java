@@ -6,7 +6,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
+
+import java.util.AbstractMap;
 
 /**
  * Created by Vison on 2015/7/3.
@@ -52,6 +56,8 @@ public class CardOnTouchListener implements View.OnTouchListener {
     // Implement onTouchListener
     @Override
     public boolean onTouch(View view, MotionEvent event) {
+
+
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
                 ViewGroup.LayoutParams params = mView.getLayoutParams();
@@ -64,7 +70,7 @@ public class CardOnTouchListener implements View.OnTouchListener {
                 mView.setPivotX(x);
                 mView.setPivotY(y);
 
-                Log.i("ACTION_DOWN", x + "," + y);
+                Log.i("ACTION_DOWN", mOriginViewX + "," + mOriginViewY);
                 break;
             case MotionEvent.ACTION_MOVE:
                 // Returns the X coordinate of this event for the given pointer
@@ -93,17 +99,21 @@ public class CardOnTouchListener implements View.OnTouchListener {
 
                 break;
             case MotionEvent.ACTION_UP:
+                Log.i("ACTION_UP", mOriginViewX + "," + mOriginViewY);
+                final int DURATION = 180;
                 if (moveStatus() == BEYOND_LEFT_MOVE) {
+                    animationFlyOver(mView, -1);
                     onMovedBeyondLeftBorder();
+
                 } else if (moveStatus() == BEYOND_RIGHT_MOVE) {
+                    animationFlyOver(mView, 1);
                     onMovedBeyondRightBorder();
+
                 } else if (moveStatus() == LEFT_MOVE) {
-                    Animation am = new TranslateAnimation(mView.getTranslationX(), mOriginViewX, mView.getTranslationY(), mOriginViewY);
-                    am.setDuration(300);
-                    mView.startAnimation(am);
+                    animationFlyBack(mView);
 
                 } else if (moveStatus() == RIGHT_MOVE) {
-
+                    animationFlyBack(mView);
                 }
                 break;
             default:
@@ -128,5 +138,49 @@ public class CardOnTouchListener implements View.OnTouchListener {
         return 0;
     }
 
+    /**
+     *
+     * @param view the target view to apply animation on
+     * @param direction set -1 if direction is left; set 1 if right
+     */
+    private void animationFlyOver(View view, int direction) {
+        final int DURATION = 150;
+        float toXDelta = 0, toYDelta = 0;
+        float toDegree = 0;
+        if (direction < 0) { // left
+            toXDelta = -parentWidth - view.getTranslationX();
+        } else if (direction > 0){ // right
+            toXDelta = parentWidth - view.getTranslationX();
+        }
+        // formula: y'-y = y*(x'/x) -y
+        toYDelta = view.getTranslationY() * (toXDelta/view.getTranslationX()) - view.getTranslationY();
+        Animation translateAm = new TranslateAnimation(0, toXDelta, 0, toYDelta);
 
+        // formula: r'-r = r*(x'/x) -r
+        toDegree = view.getRotation() * (toXDelta / view.getTranslationX()) - view.getRotation();
+        Animation rotationAm = new RotateAnimation(0, toDegree, view.getPivotX(), view.getPivotY());
+
+        AnimationSet set = new AnimationSet(false);
+        set.addAnimation(translateAm);
+        set.addAnimation(rotationAm);
+        set.setDuration(DURATION);
+        set.setFillAfter(true);
+
+        view.startAnimation(set);
+    }
+
+    private void animationFlyBack(View view) {
+        final int DURATION = 180;
+        Animation translateAm = new TranslateAnimation(0, mOriginViewX - mView.getTranslationX(), 0, mOriginViewY - mView.getTranslationY());
+        Animation rotationAm = new RotateAnimation(0, -mView.getRotation(), mView.getPivotX(), mView.getPivotY());
+
+        AnimationSet amSet = new AnimationSet(false);
+        amSet.addAnimation(translateAm);
+        amSet.addAnimation(rotationAm);
+
+        amSet.setDuration(DURATION);
+        amSet.setFillAfter(true); // true: set the animation to be persisted when finished
+
+        mView.startAnimation(amSet);
+    }
 }

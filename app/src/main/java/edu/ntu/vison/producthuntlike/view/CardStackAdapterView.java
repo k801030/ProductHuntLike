@@ -61,6 +61,7 @@ public class CardStackAdapterView extends AdapterView {
         // set top view touch listener
         mTopViewAt = getChildCount()-1;
         mTopView = getChildAt(mTopViewAt);
+        Log.i("ON_LAYOUT","");
         mOnTouchListener = new CardOnTouchListener(mTopView) {
             @Override
             public void onMovedBeyondLeftBorder() {
