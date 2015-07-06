@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 
 /**
  * Created by Vison on 2015/7/3.
@@ -40,11 +42,11 @@ public class CardOnTouchListener implements View.OnTouchListener {
 
 
     public void onMovedBeyondLeftBorder() {
-
+        // override this content
     };
 
     public void onMovedBeyondRightBorder() {
-
+        // override this content
     };
 
     // Implement onTouchListener
@@ -68,7 +70,6 @@ public class CardOnTouchListener implements View.OnTouchListener {
                 // Returns the X coordinate of this event for the given pointer
                 float moveX = event.getX(mPointerId);
                 float moveY = event.getY(mPointerId);
-                Log.i("ALPHA_BUG",mView.toString());
                 // Calculate the distance moved
                 float dx = moveX - mDownTouchX;
                 float dy = moveY - mDownTouchY;
@@ -92,11 +93,16 @@ public class CardOnTouchListener implements View.OnTouchListener {
 
                 break;
             case MotionEvent.ACTION_UP:
-                if(moveStatus() == BEYOND_LEFT_MOVE) {
+                if (moveStatus() == BEYOND_LEFT_MOVE) {
                     onMovedBeyondLeftBorder();
-                }else if(moveStatus() == BEYOND_RIGHT_MOVE) {
+                } else if (moveStatus() == BEYOND_RIGHT_MOVE) {
                     onMovedBeyondRightBorder();
-                }else {
+                } else if (moveStatus() == LEFT_MOVE) {
+                    Animation am = new TranslateAnimation(mView.getTranslationX(), mOriginViewX, mView.getTranslationY(), mOriginViewY);
+                    am.setDuration(300);
+                    mView.startAnimation(am);
+
+                } else if (moveStatus() == RIGHT_MOVE) {
 
                 }
                 break;
@@ -108,7 +114,7 @@ public class CardOnTouchListener implements View.OnTouchListener {
 
     private int moveStatus() {
         float borderDistance = parentWidth/2 * dragSensitivity;
-        float xMove = (mOriginViewX - mView.getTranslationX());
+        float xMove = mView.getTranslationX() - mOriginViewX;
 
         if (xMove >= borderDistance) {
             return BEYOND_RIGHT_MOVE;
